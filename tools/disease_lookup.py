@@ -6,15 +6,16 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.provenance import ProvenanceLog
 
-Entrez.email = "EMAIL_ADDRESS"
-Entrez.api_key = os.getenv("NCBI_API_KEY")
-orphanet_api_key = os.getenv("ORPHANET_API_KEY", "")
-
-def lookup_disease(disease_name: str, provenance: ProvenanceLog = None) -> dict:
+def lookup_disease(disease_name: str, data_dir: str = "data",
+                   provenance: ProvenanceLog = None) -> dict:
     """
     Query NCBI MeSH + Orphanet to assess the disease and return
     structured information about it.
     """
+    Entrez.email = os.getenv("EMAIL_ADDRESS")
+    Entrez.api_key = os.getenv("NCBI_API_KEY")
+    orphanet_api_key = os.getenv("ORPHANET_API_KEY", "")
+
     result = {
         "disease_name": disease_name,
         "mesh_terms": [],
@@ -70,7 +71,9 @@ def lookup_disease(disease_name: str, provenance: ProvenanceLog = None) -> dict:
             "orphanet_found":         "error" not in result.get("orphanet_info", {})
         })
         provenance.record_output_file("disease_lookup_raw",
-                                      f"data/{disease_name.replace(' ', '_')}_lookup.json")
+                                      os.path.join(data_dir, f"{disease_name.replace(' ', '_')}_lookup.json"))
+
+    result["feasibility"] = assess_repurposing_feasibility(result, provenance=provenance)
 
     return result
 
@@ -121,10 +124,7 @@ if __name__ == "__main__":
     # Create the provenance log
     prov = ProvenanceLog.get_or_create("Friedreich ataxia")
     
-    # Pass it into the function calls
     result = lookup_disease("Friedreich ataxia", provenance=prov)
     print(result)
-
-    feasibility = assess_repurposing_feasibility(result, provenance=prov)
-    print(feasibility)
+    print(result["feasibility"])
 

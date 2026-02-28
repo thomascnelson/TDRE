@@ -1,0 +1,12 @@
+biopython==1.86
+GEOparse==2.0.4
+pydeseq2==0.5.4
+gseapy==1.1.11
+mygene==3.2.2
+pandas==2.3.3
+numpy==2.4.2
+scipy==1.16.3
+requests==2.32.5
+python-dotenv==1.2.1
+rich==14.3.2
+anndata==0.12.10

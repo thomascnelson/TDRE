@@ -1,0 +1,629 @@
+{
+  "disease_name": "Friedreich ataxia",
+  "created": "2026-02-28T08:19:16.897500",
+  "last_updated": "2026-02-28T08:21:27.614795",
+  "pipeline_steps": {
+    "disease_lookup": {
+      "completed": "2026-02-28T08:19:19.486286",
+      "mesh_terms": [
+        "68005621",
+        "67566594",
+        "67565561",
+        "67564999",
+        "67564657",
+        "67564446",
+        "67538061",
+        "67535393",
+        "2106500"
+      ],
+      "pubmed_treatment_hits": 260,
+      "orphanet_found": true
+    },
+    "feasibility_assessment": {
+      "completed": "2026-02-28T08:19:19.505650",
+      "feasibility_score": 100,
+      "flags": [],
+      "proceed_recommended": true
+    },
+    "geo_search": {
+      "completed": "2026-02-28T08:19:38.635482",
+      "disease_name": "Friedreich ataxia",
+      "n_datasets_found": 50,
+      "rejected_datasets": [
+        {
+          "accession": "GSE262763",
+          "title": "Correction of splicing defect in compound heterozygous FRDA patient carrying FXN 165+5G>C point mutation.",
+          "reason": "Insufficient sample size (1 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE232826",
+          "title": "Loss of homeostatic functions in microglia from a murine model of Friedreich\u2019s ataxia",
+          "reason": "Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered; Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE261654",
+          "title": "Frataxin Deficiency Drives a Shift from Mitochondrial Metabolism to Glucose Catabolism, Triggering an Inflammatory Phenotype in Microglia (scRNA-Seq)",
+          "reason": "Insufficient sample size (2 samples) \u2014 need at least 6; Mouse data \u2014 gene ortholog mapping will be required"
+        },
+        {
+          "accession": "GSE242192",
+          "title": "Genetic interaction screen for FXN in K562 cells, to identify genes that are synthetic sick/buffering in the absence of robust Fe-S cluster synthesis",
+          "reason": "Insufficient sample size (4 samples) \u2014 need at least 6"
+        },
+        {
+          "accession": "GSE239980",
+          "title": "Butyrate prevents visceral adipose tissue inflammation and metabolic alterations in a mouse model of Friedreich\u2019s ataxia",
+          "reason": "Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered; Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE176575",
+          "title": "Disruption of the histone H3 cupric reductase activity prevents global transcriptional rewiring when YFH1 is diminished",
+          "reason": "No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE148212",
+          "title": "CRISPR/Cas9 targeted deletions in frataxin rescue Friedreich\u2019s ataxia pathology in a human stem cell-based peripheral sensory neural circuitry",
+          "reason": "Insufficient sample size (2 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE133755",
+          "title": "In vitro restoration of Friedreich's Ataxia defect with novel Cas9-edited hiPSC-derived Dorsal Root Ganglion-like Organoids (DRGOs) and Microfluidic System",
+          "reason": "Insufficient sample size (3 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE108200",
+          "title": "Frataxin deficiency in Friedreich?s Ataxia is associated with reduced levels of HAX-1, a regulator of cardiomyocyte death and survival.",
+          "reason": "Insufficient sample size (2 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE109510",
+          "title": "The transcriptional regulator CCCTC-binding factor limits oxidative stress in endothelial cells",
+          "reason": "Borderline sample size (6 samples) \u2014 DESeq2 results may be underpowered; Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE15843",
+          "title": "Functional genomic analysis of frataxin deficiency, Agilent data",
+          "reason": "Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE11425",
+          "title": "Chromosome fragility at the expanded GAA/TTC tracks depends on repeat orientation and requires mismatch repair system.",
+          "reason": "No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797185",
+          "title": "PAT12 (LOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797184",
+          "title": "PAT11 (LOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797183",
+          "title": "PAT10 (LOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797182",
+          "title": "PAT9 (LOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797181",
+          "title": "PAT8 (IOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797180",
+          "title": "PAT7 (IOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797179",
+          "title": "PAT6 (IOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797178",
+          "title": "PAT5 (IOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797177",
+          "title": "PAT4 (EOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7797176",
+          "title": "PAT3 (EOG)",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        }
+      ]
+    },
+    "dataset_selection": {
+      "completed": "2026-02-28T08:19:59.212098",
+      "selected_accession": "GSE226646",
+      "selected_title": "Skeletal muscle transcriptomics dissects the pathogenesis of Friedreich's Ataxia",
+      "suitability_score": 80,
+      "n_candidates_shown": 5
+    },
+    "sample_assignment": {
+      "completed": "2026-02-28T08:20:48.869337",
+      "group_counts": {
+        "disease": 7,
+        "exclude": 7,
+        "control": 6
+      },
+      "n_excluded": 7,
+      "ready_for_deg": true,
+      "groups_file": "data/friedreich_ataxia/GSE226646_groups.csv"
+    },
+    "deg_analysis": {
+      "completed": "2026-02-28T08:20:55.116048",
+      "n_disease_samples": 7,
+      "n_control_samples": 6,
+      "n_genes_tested": 14592,
+      "n_significant_up": 560,
+      "n_significant_down": 619,
+      "top_upregulated": [
+        "TGFB2",
+        "EIF5B",
+        "SMARCC1",
+        "FXR1",
+        "S100A4",
+        "CSDE1",
+        "PTMA",
+        "SYNE2",
+        "ZBTB20",
+        "FBXW7"
+      ],
+      "top_downregulated": [
+        "RP3-340B19.2",
+        "NDUFS7",
+        "RPS15AP1",
+        "FBLN2",
+        "IMPA2",
+        "MTCO1P53",
+        "RPL13AP5",
+        "HLA-B",
+        "EFHD1",
+        "NDUFB3"
+      ]
+    },
+    "signature_building": {
+      "completed": "2026-02-28T08:20:58.486677",
+      "n_up": 68,
+      "n_down": 39,
+      "signature_quality": "good",
+      "top_up": [
+        "PIK3R1",
+        "FXR2",
+        "RERGL",
+        "TGFB2",
+        "ZDHHC21",
+        "BPTF",
+        "PRMT1",
+        "KCNB1",
+        "TNPO1",
+        "FRG1",
+        "HSPA5",
+        "ATP2B1",
+        "RBM25",
+        "NSUN6",
+        "DDX6"
+      ],
+      "top_down": [
+        "IMPA2",
+        "JTB",
+        "ATP5MK",
+        "DECR2",
+        "MRLN",
+        "HLA-B",
+        "MRPS24",
+        "MACROD1",
+        "POTEF",
+        "NDUFA7",
+        "EFHD1",
+        "DGLUCY",
+        "MT-CO1",
+        "FBLN2",
+        "CHCHD10"
+      ]
+    },
+    "drug_repurposing": {
+      "completed": "2026-02-28T08:21:27.611404",
+      "source": "l1000fwd",
+      "n_candidates": 48,
+      "n_high_confidence": 4,
+      "n_med_confidence": 37,
+      "result_url": "https://maayanlab.cloud/l1000fwd/#result/69a2ebc8d33550002d585903"
+    }
+  },
+  "warnings": [
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.637939",
+      "message": "GSE262763: Insufficient sample size (1 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.638057",
+      "message": "GSE262763: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.638162",
+      "message": "GSE255810: Borderline sample size (6 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.638267",
+      "message": "GSE255810: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.638388",
+      "message": "GSE271798: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.638594",
+      "message": "GSE232826: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.638683",
+      "message": "GSE232826: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.639336",
+      "message": "GSE232826: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.639464",
+      "message": "GSE261655: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.639555",
+      "message": "GSE261655: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.639764",
+      "message": "GSE261654: Insufficient sample size (2 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.639878",
+      "message": "GSE261654: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.640090",
+      "message": "GSE261653: Borderline sample size (6 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.640246",
+      "message": "GSE261653: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.640537",
+      "message": "GSE242192: Insufficient sample size (4 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.640824",
+      "message": "GSE239980: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.640986",
+      "message": "GSE239980: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.641130",
+      "message": "GSE239980: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.641276",
+      "message": "GSE229143: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.641423",
+      "message": "GSE200907: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.641552",
+      "message": "GSE204808: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.641691",
+      "message": "GSE203632: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.641955",
+      "message": "GSE176575: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.642107",
+      "message": "GSE145115: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.642387",
+      "message": "GSE148212: Insufficient sample size (2 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.642527",
+      "message": "GSE148212: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.642807",
+      "message": "GSE133755: Insufficient sample size (3 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.642963",
+      "message": "GSE133755: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.643269",
+      "message": "GSE108200: Insufficient sample size (2 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.643434",
+      "message": "GSE108200: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.643606",
+      "message": "GSE102008: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.643917",
+      "message": "GSE109510: Borderline sample size (6 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.644075",
+      "message": "GSE109510: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.644251",
+      "message": "GSE109510: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.644429",
+      "message": "GSE98790: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.644589",
+      "message": "GSE98790: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.644789",
+      "message": "GSE105052: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.644971",
+      "message": "GSE65399: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.645138",
+      "message": "GSE31208: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.645306",
+      "message": "GSE31208: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.645495",
+      "message": "GSE30933: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.645680",
+      "message": "GSE22651: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.645858",
+      "message": "GSE15848: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.646042",
+      "message": "GSE15848: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.646439",
+      "message": "GSE15843: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.646637",
+      "message": "GSE15843: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.647024",
+      "message": "GSE11425: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.647231",
+      "message": "GSE10745: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.647630",
+      "message": "GSM7797185: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.647826",
+      "message": "GSM7797185: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.648258",
+      "message": "GSM7797184: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.648481",
+      "message": "GSM7797184: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.648938",
+      "message": "GSM7797183: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.649834",
+      "message": "GSM7797183: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.650461",
+      "message": "GSM7797182: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.650723",
+      "message": "GSM7797182: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.651157",
+      "message": "GSM7797181: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.651392",
+      "message": "GSM7797181: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.651840",
+      "message": "GSM7797180: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.652082",
+      "message": "GSM7797180: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.652551",
+      "message": "GSM7797179: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.652789",
+      "message": "GSM7797179: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.653272",
+      "message": "GSM7797178: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.653507",
+      "message": "GSM7797178: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.653997",
+      "message": "GSM7797177: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.654248",
+      "message": "GSM7797177: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.654750",
+      "message": "GSM7797176: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-02-28T08:19:38.655008",
+      "message": "GSM7797176: No clear mention of control group in summary"
+    }
+  ],
+  "parameters": {
+    "deg_analysis": {
+      "padj_threshold": 0.05,
+      "lfc_threshold": 1.0,
+      "min_count_filter": 10
+    },
+    "signature_building": {
+      "padj_threshold": 0.05,
+      "lfc_threshold": 1.0,
+      "max_genes": 150
+    }
+  },
+  "output_files": {
+    "disease_lookup_raw": "data/friedreich_ataxia/Friedreich_ataxia_lookup.json",
+    "count_matrix": "data/friedreich_ataxia/GSE226646_counts.csv",
+    "sample_metadata": "data/friedreich_ataxia/GSE226646_metadata.csv",
+    "sample_groups": "data/friedreich_ataxia/GSE226646_groups.csv",
+    "deg_results": "data/friedreich_ataxia/GSE226646_deseq2_results.csv",
+    "signature_json": "data/friedreich_ataxia/GSE226646_signature.json",
+    "signature_csv": "data/friedreich_ataxia/GSE226646_signature.csv",
+    "drug_candidates_json": "data/friedreich_ataxia/GSE226646_drug_candidates.json",
+    "drug_candidates_csv": "data/friedreich_ataxia/GSE226646_drug_candidates.csv"
+  },
+  "dataset": {
+    "accession": "GSE226646",
+    "title": "Skeletal muscle transcriptomics dissects the pathogenesis of Friedreich's Ataxia",
+    "n_samples": 20,
+    "n_disease": 7,
+    "n_control": 6,
+    "organism": "Homo sapiens",
+    "tissue": "",
+    "data_source": "supplementary_counts",
+    "geo_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226646"
+  },
+  "summary_stats": {
+    "n_genes_tested": 14592,
+    "n_significant_up": 560,
+    "n_significant_down": 619,
+    "n_signature_up": 68,
+    "n_signature_down": 39,
+    "n_drug_candidates": 48,
+    "n_high_confidence_drugs": 4
+  }
+}

@@ -12,12 +12,9 @@ import pandas as pd
 
 from utils.provenance import ProvenanceLog
 
-DATA_DIR = "data"
-
-
 # ── Main download function ────────────────────────────────────────────────────
 
-def download_geo_dataset(geo_accession: str,
+def download_geo_dataset(geo_accession: str, data_dir: str = "data",
                          provenance: ProvenanceLog = None) -> dict:
     """
     Download a GEO dataset and extract a count matrix + metadata.
@@ -30,7 +27,7 @@ def download_geo_dataset(geo_accession: str,
          (often normalized — flagged as a warning)
       3. Return a clear error if neither method works
     """
-    os.makedirs(DATA_DIR, exist_ok=True)
+    os.makedirs(data_dir, exist_ok=True)
 
     result = {
         "accession":         geo_accession,
@@ -49,7 +46,7 @@ def download_geo_dataset(geo_accession: str,
     try:
         gse = GEOparse.get_GEO(
             geo=geo_accession,
-            destdir=DATA_DIR,
+            destdir=data_dir,
             silent=True
         )
     except Exception as e:
@@ -77,21 +74,21 @@ def download_geo_dataset(geo_accession: str,
         sample_meta.append(meta)
 
     meta_df   = pd.DataFrame(sample_meta)
-    meta_path = os.path.join(DATA_DIR, f"{geo_accession}_metadata.csv")
+    meta_path = os.path.join(data_dir, f"{geo_accession}_metadata.csv")
     meta_df.to_csv(meta_path, index=False)
     result["metadata_path"] = meta_path
     result["samples"]       = sample_meta
 
     # ── Try supplementary count file first ───────────────────────────────────
     supp_files = gse.metadata.get("supplementary_file", [])
-    count_matrix_path = _try_get_supplementary_counts(geo_accession, supp_files)
+    count_matrix_path = _try_get_supplementary_counts(geo_accession, supp_files, data_dir)
 
     if count_matrix_path:
         result["count_matrix_path"] = count_matrix_path
         result["data_source"]       = "supplementary_counts"
     else:
         # Fall back to GEO matrix file
-        matrix_path = _extract_matrix_from_gse(gse, geo_accession)
+        matrix_path = _extract_matrix_from_gse(gse, geo_accession, data_dir)
 
         if matrix_path is None:
             result["count_matrix_path"] = None
@@ -131,7 +128,8 @@ def download_geo_dataset(geo_accession: str,
 # ── Supplementary file download ───────────────────────────────────────────────
 
 def _try_get_supplementary_counts(accession: str,
-                                   supp_files: list) -> str | None:
+                                   supp_files: list,
+                                   data_dir: str = "data") -> str | None:
     """
     Look for a raw count matrix in the GEO supplementary files.
     Downloads the file, parses it, and saves a clean CSV.
@@ -154,7 +152,7 @@ def _try_get_supplementary_counts(accession: str,
             continue
 
         filename = url.split("/")[-1]
-        dest     = os.path.join(DATA_DIR, filename)
+        dest     = os.path.join(data_dir, filename)
 
         # Download if not already cached
         if not os.path.exists(dest):
@@ -180,7 +178,7 @@ def _try_get_supplementary_counts(accession: str,
             # Strip stray quote characters from gene ID index
             df.index = df.index.str.strip('"')
 
-            clean_path = os.path.join(DATA_DIR, f"{accession}_counts.csv")
+            clean_path = os.path.join(data_dir, f"{accession}_counts.csv")
             df.to_csv(clean_path, quoting=csv.QUOTE_NONE)
             print(f"  Count matrix saved: {clean_path} "
                   f"({df.shape[0]} genes x {df.shape[1]} samples)")
@@ -198,7 +196,7 @@ def _try_get_supplementary_counts(accession: str,
                                      quoting=csv.QUOTE_NONE)
 
                 df.index = df.index.str.strip('"')
-                clean_path = os.path.join(DATA_DIR, f"{accession}_counts.csv")
+                clean_path = os.path.join(data_dir, f"{accession}_counts.csv")
                 df.to_csv(clean_path, quoting=csv.QUOTE_NONE)
                 print(f"  Count matrix saved (tab-separated): {clean_path} "
                       f"({df.shape[0]} genes x {df.shape[1]} samples)")
@@ -214,7 +212,7 @@ def _try_get_supplementary_counts(accession: str,
 
 # ── GEO matrix fallback ───────────────────────────────────────────────────────
 
-def _extract_matrix_from_gse(gse, accession: str) -> str | None:
+def _extract_matrix_from_gse(gse, accession: str, data_dir: str = "data") -> str | None:
     """
     Extract expression matrix from GEO soft file as a last resort.
     Note: RNA-seq data often fails here because GEOparse's pivot_samples
@@ -222,7 +220,7 @@ def _extract_matrix_from_gse(gse, accession: str) -> str | None:
     """
     try:
         pivot = gse.pivot_samples("VALUE")
-        path  = os.path.join(DATA_DIR, f"{accession}_matrix.csv")
+        path  = os.path.join(data_dir, f"{accession}_matrix.csv")
         pivot.to_csv(path)
         print(f"  GEO matrix extracted: {path}")
         return path
@@ -243,7 +241,7 @@ def _extract_matrix_from_gse(gse, accession: str) -> str | None:
 
             if frames:
                 df   = pd.concat(frames, axis=1)
-                path = os.path.join(DATA_DIR, f"{accession}_matrix.csv")
+                path = os.path.join(data_dir, f"{accession}_matrix.csv")
                 df.to_csv(path)
                 print(f"  Sample table matrix extracted: {path}")
                 return path

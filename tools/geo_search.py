@@ -10,7 +10,7 @@ def search_geo_datasets(disease_name: str, max_results: int = 50, provenance: Pr
     Search GEO for RNA-seq datasets relevant to the disease.
     Returns structured metadata for each candidate dataset.
     """
-    Entrez.email = "EMAIL_ADDRESS"
+    Entrez.email = os.getenv("EMAIL_ADDRESS")
     Entrez.api_key = os.getenv("NCBI_API_KEY")
 
     # GEO DataSets database
@@ -95,16 +95,16 @@ def score_dataset_suitability(dataset: dict, provenance: ProvenanceLog = None) -
         issues.append("No clear mention of control group in summary")
 
     if provenance:
-        if not result["recommended"]:
+        recommended = score >= 40
+        if not recommended:
             provenance.record_rejected_dataset(
-                accession = result.get("geo_accession", ""),
-                title     = result.get("title", ""),
-                reason    = "; ".join(result["issues"]) if result["issues"]
-                            else "Low suitability score"
+                accession = dataset.get("geo_accession", ""),
+                title     = dataset.get("title", ""),
+                reason    = "; ".join(issues) if issues else "Low suitability score"
             )
-        for issue in result["issues"]:
+        for issue in issues:
             provenance.record_warning("geo_search",
-                f"{result.get('geo_accession', '')}: {issue}")
+                f"{dataset.get('geo_accession', '')}: {issue}")
 
     return {
         **dataset,
@@ -113,6 +113,99 @@ def score_dataset_suitability(dataset: dict, provenance: ProvenanceLog = None) -
         "positives": positives,
         "recommended": score >= 40
     }
+
+
+def select_dataset_interactive(scored_datasets: list[dict],
+                               provenance: ProvenanceLog = None) -> dict:
+    """
+    Present scored datasets to the user and ask them to select one for analysis.
+    Shows all metadata for each dataset so the user can make an informed choice.
+    Returns the selected dataset dict (including geo_accession for download).
+    """
+    if not scored_datasets:
+        raise ValueError("No datasets to select from")
+
+    # Sort by suitability score descending, show only recommended, cap at 5
+    ranked = sorted(scored_datasets, key=lambda d: d["suitability_score"], reverse=True)
+    ranked = [d for d in ranked if d["recommended"]][:5]
+
+    if not ranked:
+        print("  ⚠  No datasets met the recommendation threshold. Showing top 5 overall.")
+        ranked = sorted(scored_datasets, key=lambda d: d["suitability_score"], reverse=True)[:5]
+
+    print("\n" + "="*70)
+    print("  GEO DATASET SELECTION")
+    print("="*70)
+    print("  Review each dataset and enter the number of the one to analyse.")
+    print("="*70)
+
+    for i, ds in enumerate(ranked, 1):
+        print(f"\n  [{i}]  {ds['geo_accession']}  —  Score: {ds['suitability_score']}"
+              f"  {'✓ Recommended' if ds['recommended'] else '⚠  Not recommended'}")
+        print(f"  Title:    {ds['title']}")
+        print(f"  Organism: {ds['organism']}")
+        print(f"  Samples:  {ds['n_samples']}")
+        print(f"  Platform: {ds['platform']}")
+        print(f"  Submitted:{ds['submission_date']}")
+        print(f"  URL:      https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc={ds['geo_accession']}")
+        print(f"  Summary:  {ds['summary']}")
+        if ds["positives"]:
+            for p in ds["positives"]:
+                print(f"    ✓  {p}")
+        if ds["issues"]:
+            for iss in ds["issues"]:
+                print(f"    ⚠  {iss}")
+        print()
+
+    print("="*70)
+
+    while True:
+        raw = input(
+            f"  Select dataset [1-{len(ranked)}] or enter a GEO accession directly: "
+        ).strip()
+
+        if raw.upper().startswith("GSE") or raw.upper().startswith("GDS"):
+            # User typed an accession directly — build a minimal dict
+            selected = next((d for d in ranked if d["geo_accession"] == raw.upper()), None)
+            if selected is None:
+                print(f"  Accession {raw.upper()} not in the list above — using it anyway.")
+                selected = {"geo_accession": raw.upper(), "title": "", "suitability_score": 0,
+                            "n_samples": 0, "organism": "", "platform": "",
+                            "submission_date": "", "summary": "",
+                            "issues": [], "positives": [], "recommended": False}
+            break
+
+        try:
+            idx = int(raw) - 1
+            if 0 <= idx < len(ranked):
+                selected = ranked[idx]
+                break
+            else:
+                print(f"  Please enter a number between 1 and {len(ranked)}.")
+        except ValueError:
+            print(f"  Please enter a number between 1 and {len(ranked)}, or a GEO accession.")
+
+    print(f"\n  Selected: {selected['geo_accession']}  —  {selected['title']}")
+    print("="*70 + "\n")
+
+    if provenance:
+        provenance.record_step("dataset_selection", {
+            "selected_accession": selected["geo_accession"],
+            "selected_title":     selected["title"],
+            "suitability_score":  selected["suitability_score"],
+            "n_candidates_shown": len(ranked)
+        })
+        provenance.record_dataset(
+            accession   = selected["geo_accession"],
+            title       = selected["title"],
+            n_samples   = selected["n_samples"],
+            n_disease   = 0,   # not yet known — updated after sample assignment
+            n_control   = 0,
+            organism    = selected["organism"],
+            data_source = "pending"
+        )
+
+    return selected
 
 
 ### TEST ROUTINE
@@ -124,13 +217,11 @@ if __name__ == "__main__":
     # Create the provenance log
     prov = ProvenanceLog.get_or_create("Friedreich ataxia")
 
-    geo_search_results = search_geo_datasets("Friedreich ataxia", max_results=20, provenance = prov)
-    scored_results = []
-    
-    for item in geo_search_results:
-        scored_results.append(score_dataset_suitability(item))
-    sorted_scored_results = sorted(scored_results, key=lambda d: d['suitability_score'], reverse=True)
-    print(json.dumps(sorted_scored_results, indent=4))
+    geo_search_results = search_geo_datasets("Friedreich ataxia", max_results=20, provenance=prov)
+    scored_results = [score_dataset_suitability(d, provenance=prov) for d in geo_search_results]
+
+    selected = select_dataset_interactive(scored_results, provenance=prov)
+    print(f"Proceeding with: {selected['geo_accession']}")
 
 
 

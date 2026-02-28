@@ -11,15 +11,108 @@ from utils.provenance import ProvenanceLog
 
 L1000FWD_URL = "https://maayanlab.cloud/l1000fwd/"
 
+RESOURCES_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "resources")
+
+# Module-level cache — loaded once on first call
+_hub_cache = None
+
+def _load_repurposing_hub() -> dict:
+    """
+    Load the Broad Drug Repurposing Hub annotation files from resources/.
+    Returns a dict with:
+      brd_to_name  : broad_id → pert_iname
+      name_to_info : pert_iname → {moa, target, clinical_phase}
+    Results are cached after the first load.
+    """
+    global _hub_cache
+    if _hub_cache is not None:
+        return _hub_cache
+
+    brd_to_name  = {}
+    name_to_info = {}
+
+    # Find annotation files by prefix — tolerates different date suffixes
+    sample_file = None
+    drug_file   = None
+    if os.path.isdir(RESOURCES_DIR):
+        for fname in os.listdir(RESOURCES_DIR):
+            if fname.startswith("repo-sample-annotation"):
+                sample_file = os.path.join(RESOURCES_DIR, fname)
+            elif fname.startswith("repo-drug-annotation"):
+                drug_file = os.path.join(RESOURCES_DIR, fname)
+
+    # Sample annotation: broad_id → pert_iname
+    if sample_file:
+        try:
+            df = pd.read_csv(sample_file, sep="\t", comment="!", dtype=str).fillna("")
+            for _, row in df.iterrows():
+                brd  = row.get("broad_id", "").strip()
+                name = row.get("pert_iname", "").strip()
+                if brd and name:
+                    brd_to_name[brd] = name
+                    # Also index by the short BRD prefix (BRD-XXXXXXXX)
+                    # in case L1000FWD uses a different batch suffix
+                    short = "-".join(brd.split("-")[:2])
+                    if short not in brd_to_name:
+                        brd_to_name[short] = name
+            print(f"  Repurposing Hub: loaded {len(brd_to_name)} BRD ID entries")
+        except Exception as e:
+            print(f"  Warning: could not load sample annotation file: {e}")
+
+    # Drug annotation: pert_iname → moa, target, clinical_phase
+    if drug_file:
+        try:
+            df = pd.read_csv(drug_file, sep="\t", comment="!", dtype=str).fillna("")
+            for _, row in df.iterrows():
+                name = row.get("pert_iname", "").strip()
+                if name:
+                    name_to_info[name.lower()] = {
+                        "moa":            row.get("moa",            ""),
+                        "target":         row.get("target",         ""),
+                        "clinical_phase": row.get("clinical_phase", "")
+                    }
+            print(f"  Repurposing Hub: loaded {len(name_to_info)} drug annotation entries")
+        except Exception as e:
+            print(f"  Warning: could not load drug annotation file: {e}")
+
+    _hub_cache = {"brd_to_name": brd_to_name, "name_to_info": name_to_info}
+    return _hub_cache
+
+
+def _pubchem_lookup(brd_id: str) -> str:
+    """
+    Fallback: look up a BRD ID in PubChem.
+    Returns the common name, or the BRD ID itself if not found.
+    """
+    try:
+        url  = (f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/"
+                f"{brd_id}/property/IUPACName,Title/JSON")
+        resp = requests.get(url, timeout=10)
+        if resp.status_code == 200:
+            props = resp.json().get("PropertyTable", {}).get("Properties", [])
+            if props:
+                return props[0].get("Title") or props[0].get("IUPACName") or brd_id
+    except Exception:
+        pass
+    return brd_id
+
+
 def resolve_drug_names(sig_ids: list[str]) -> dict:
     """
-    Resolve BRD compound IDs to drug names using PubChem's free API.
-    PubChem indexes the majority of LINCS compounds by their BRD ID.
-    Falls back gracefully to the BRD ID if lookup fails.
+    Resolve BRD compound IDs to drug names and annotations.
+
+    Lookup order:
+      1. Broad Drug Repurposing Hub (local files in resources/) — best coverage,
+         also provides moa, target, and clinical_phase
+      2. PubChem API — fallback for compounds not in the Hub
+      3. Raw BRD ID — last resort
     """
-    # Parse BRD IDs and basic metadata from sig_id strings first
-    parsed = {}
-    brd_to_sigids = {}   # map BRD ID → list of sig_ids using it
+    hub = _load_repurposing_hub()
+    brd_to_name  = hub["brd_to_name"]
+    name_to_info = hub["name_to_info"]
+
+    parsed        = {}
+    brd_to_sigids = {}
 
     for sig_id in sig_ids:
         parts     = sig_id.split(":")
@@ -30,50 +123,54 @@ def resolve_drug_names(sig_ids: list[str]) -> dict:
         dose      = parts[2] if len(parts) > 2 else ""
 
         parsed[sig_id] = {
-            "sig_id":     sig_id,
-            "brd_id":     brd_id,
-            "cell_id":    cell_line,
-            "pert_time":  timepoint,
-            "pert_dose":  dose,
-            "pert_iname": brd_id   # default — overwritten if lookup succeeds
+            "sig_id":         sig_id,
+            "brd_id":         brd_id,
+            "cell_id":        cell_line,
+            "pert_time":      timepoint,
+            "pert_dose":      dose,
+            "pert_iname":     brd_id,   # overwritten below if resolved
+            "moa":            "",
+            "target":         "",
+            "clinical_phase": ""
         }
 
         if brd_id:
             brd_to_sigids.setdefault(brd_id, []).append(sig_id)
 
-    # Look up unique BRD IDs via PubChem
-    unique_brds = list(brd_to_sigids.keys())
-    print(f"  Looking up {len(unique_brds)} unique BRD IDs via PubChem...")
+    unique_brds    = list(brd_to_sigids.keys())
+    hub_resolved   = 0
+    pubchem_resolved = 0
+    unresolved     = 0
 
-    brd_to_name = {}
     for brd_id in unique_brds:
-        try:
-            # PubChem synonym search — BRD IDs are registered as synonyms
-            url  = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{brd_id}/property/IUPACName,Title/JSON"
-            resp = requests.get(url, timeout=10)
+        # Try exact match, then short prefix match
+        short = "-".join(brd_id.split("-")[:2])
+        name  = brd_to_name.get(brd_id) or brd_to_name.get(short)
 
-            if resp.status_code == 200:
-                props = resp.json().get("PropertyTable", {}).get("Properties", [])
-                if props:
-                    # Prefer Title (common name) over IUPAC name
-                    name = props[0].get("Title") or props[0].get("IUPACName") or brd_id
-                    brd_to_name[brd_id] = name
+        if name:
+            hub_resolved += 1
+        else:
+            # Fall back to PubChem
+            name = _pubchem_lookup(brd_id)
+            time.sleep(0.1)   # respect PubChem rate limit
+            if not name.startswith("BRD-"):
+                pubchem_resolved += 1
             else:
-                brd_to_name[brd_id] = brd_id   # keep BRD ID as fallback
+                unresolved += 1
 
-            time.sleep(0.1)   # respect PubChem rate limit (10 req/sec)
+        # Look up rich metadata by drug name
+        info = name_to_info.get(name.lower(), {})
 
-        except Exception:
-            brd_to_name[brd_id] = brd_id
+        # Apply to all sig_ids sharing this BRD ID
+        for sig_id in brd_to_sigids[brd_id]:
+            parsed[sig_id]["pert_iname"]     = name
+            parsed[sig_id]["moa"]            = info.get("moa",            "")
+            parsed[sig_id]["target"]         = info.get("target",         "")
+            parsed[sig_id]["clinical_phase"] = info.get("clinical_phase", "")
 
-    # Apply resolved names back to all sig_ids
-    for sig_id, info in parsed.items():
-        brd_id = info["brd_id"]
-        if brd_id in brd_to_name:
-            parsed[sig_id]["pert_iname"] = brd_to_name[brd_id]
-
-    resolved = sum(1 for n in brd_to_name.values() if not n.startswith("BRD-"))
-    print(f"  Resolved {resolved}/{len(unique_brds)} BRD IDs to drug names")
+    print(f"  Resolved {hub_resolved} via Repurposing Hub, "
+          f"{pubchem_resolved} via PubChem, "
+          f"{unresolved} unresolved out of {len(unique_brds)} unique BRD IDs")
 
     return parsed
 
@@ -132,7 +229,7 @@ def parse_l1000fwd_results(raw: dict, top_n: int = 50) -> list[dict]:
     seen = {}
     for c in candidates:
         drug = c["drug_name"]
-        if drug not in seen or c["score"] > seen[drug]["score"]:
+        if drug not in seen or c["score"] < seen[drug]["score"]:
             seen[drug] = c
 
     return sorted(seen.values(), key=lambda x: x["score"], reverse=False)[:top_n]
@@ -260,13 +357,14 @@ def query_enrichr_fallback(signature: dict) -> list[dict]:
 
     return sorted(candidates.values(), key=lambda x: x["score"], reverse=True)[:20]
 
-def find_drug_candidates(signature: dict, output_prefix: str = "drug_candidates", provenance: ProvenanceLog = None) -> dict:
+def find_drug_candidates(signature: dict, output_prefix: str = "drug_candidates",
+                         data_dir: str = "data", provenance: ProvenanceLog = None) -> dict:
     """
     Main entry point for Tool 6.
     Queries L1000FWD, falls back to Enrichr if needed,
     ranks candidates and saves results to file.
     """
-    os.makedirs("data", exist_ok=True)
+    os.makedirs(data_dir, exist_ok=True)
 
     raw = query_l1000fwd(signature)
 
@@ -282,8 +380,8 @@ def find_drug_candidates(signature: dict, output_prefix: str = "drug_candidates"
         print(f"  Interactive results: {result_url}")
 
     # Save results
-    json_path = f"data/{output_prefix}.json"
-    csv_path  = f"data/{output_prefix}.csv"
+    json_path = os.path.join(data_dir, f"{output_prefix}.json")
+    csv_path  = os.path.join(data_dir, f"{output_prefix}.csv")
 
     with open(json_path, "w") as f:
         json.dump(ranked, f, indent=2)

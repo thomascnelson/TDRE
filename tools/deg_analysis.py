@@ -8,7 +8,10 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import csv
 from utils.provenance import ProvenanceLog
 
-def run_deseq2(count_matrix_path: str, sample_groups: dict, output_prefix: str = "deg", provenance: ProvenanceLog = None) -> dict:
+def run_deseq2(count_matrix_path: str, sample_groups: dict, output_prefix: str = "deg",
+               padj_threshold: float = 0.05, lfc_threshold: float = 1.0,
+               min_count_filter: int = 10, data_dir: str = "data",
+               provenance: ProvenanceLog = None) -> dict:
     """
     Run DESeq2 differential expression analysis.
     Returns path to results file and summary statistics.
@@ -34,7 +37,7 @@ def run_deseq2(count_matrix_path: str, sample_groups: dict, output_prefix: str =
     counts_int = counts_subset.round().astype(int)
 
     # Remove genes with all zeros or very low counts
-    counts_int = counts_int.loc[:, counts_int.sum(axis=0) >= 10]
+    counts_int = counts_int.loc[:, counts_int.sum(axis=0) >= min_count_filter]
 
     # Build metadata dataframe
     meta = pd.DataFrame({
@@ -56,13 +59,13 @@ def run_deseq2(count_matrix_path: str, sample_groups: dict, output_prefix: str =
     results = results.sort_values("padj")
 
     # Save full results
-    os.makedirs("data", exist_ok=True)
-    results_path = f"data/{output_prefix}_deseq2_results.csv"
+    os.makedirs(data_dir, exist_ok=True)
+    results_path = os.path.join(data_dir, f"{output_prefix}_deseq2_results.csv")
     results.to_csv(results_path)
 
     # Summary stats
-    sig_up = results[(results["padj"] < 0.05) & (results["log2FoldChange"] > 1)]
-    sig_down = results[(results["padj"] < 0.05) & (results["log2FoldChange"] < -1)]
+    sig_up   = results[(results["padj"] < padj_threshold) & (results["log2FoldChange"] >  lfc_threshold)]
+    sig_down = results[(results["padj"] < padj_threshold) & (results["log2FoldChange"] < -lfc_threshold)]
 
     result = {
         "results_path": results_path,
@@ -76,9 +79,9 @@ def run_deseq2(count_matrix_path: str, sample_groups: dict, output_prefix: str =
 
     if provenance:
         provenance.record_parameters("deg_analysis", {
-            "padj_threshold":    0.05,
-            "lfc_threshold":     1.0,
-            "min_count_filter":  10
+            "padj_threshold":   padj_threshold,
+            "lfc_threshold":    lfc_threshold,
+            "min_count_filter": min_count_filter
         })
         provenance.record_step("deg_analysis", {
             "n_disease_samples":  len([v for v in valid_samples.values()
