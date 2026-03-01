@@ -1,0 +1,515 @@
+{
+  "disease_name": "Dravet syndrome",
+  "created": "2026-03-01T07:35:12.470808",
+  "last_updated": "2026-03-01T07:37:19.180919",
+  "pipeline_steps": {
+    "disease_lookup": {
+      "completed": "2026-03-01T07:35:14.944325",
+      "mesh_terms": [
+        "68004831"
+      ],
+      "pubmed_treatment_hits": 770,
+      "orphanet_found": true
+    },
+    "feasibility_assessment": {
+      "completed": "2026-03-01T07:35:14.963928",
+      "feasibility_score": 100,
+      "flags": [],
+      "proceed_recommended": true
+    },
+    "geo_search": {
+      "completed": "2026-03-01T07:35:23.654285",
+      "disease_name": "Dravet syndrome",
+      "n_datasets_found": 26,
+      "rejected_datasets": [
+        {
+          "accession": "GSE301399",
+          "title": "Brainstem metabolic changes in a mouse model of Dravet Syndrome",
+          "reason": "Insufficient sample size (2 samples) \u2014 need at least 6; Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE245113",
+          "title": "Potentiating NaV1.1 in Dravet Syndrome patient iPSC-derived GABAergic neurons increases neuronal firing frequency and decreases network synchrony",
+          "reason": "Insufficient sample size (1 samples) \u2014 need at least 6"
+        },
+        {
+          "accession": "GSE169485",
+          "title": "Deletion of a non-canonical regulatory sequence causes loss of Scn1a expression and epileptic phenotypes in mice II",
+          "reason": "Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered; Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE169481",
+          "title": "Deletion of a non-canonical regulatory sequence causes loss of Scn1a expression and epileptic phenotypes in mice",
+          "reason": "Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE145801",
+          "title": "EPI-00649-2019 New insights into the early mechanisms of epileptogenesis in a zebrafish model of Dravet syndrome",
+          "reason": "Insufficient sample size (4 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE111436",
+          "title": "dCas9-based Scn1a gene activation restores inhibitory interneuron excitability and restrains epileptic crises in Dravet syndrome mice",
+          "reason": "Borderline sample size (6 samples) \u2014 DESeq2 results may be underpowered; Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSE43312",
+          "title": "Drug screening for Dravet syndrome using Scn1a zebrafish mutants",
+          "reason": "Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM9082361",
+          "title": "Scn1a knock-in biol rep 1",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM9082360",
+          "title": "wildtype biol rep 1",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; Mouse data \u2014 gene ortholog mapping will be required; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM8086398",
+          "title": "DS_iPSC_d90_VPA_n_2",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM8086397",
+          "title": "DS_iPSC_d90_VPA_n_1",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM8086396",
+          "title": "DS_iPSC_d90_n_2",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM8086395",
+          "title": "DS_iPSC_d90_n_1",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM8086394",
+          "title": "DS_iPSC_d35_n_2",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM8086393",
+          "title": "DS_iPSC_d35_n_1",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM8086389",
+          "title": "DS_iPSC_d35_n_3",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM8086387",
+          "title": "DS_iPSC_d90_n_3",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        },
+        {
+          "accession": "GSM7836933",
+          "title": "DIV 21 Dravet Patient iPSC neurons",
+          "reason": "Insufficient sample size (0 samples) \u2014 need at least 6; No clear mention of control group in summary"
+        }
+      ]
+    },
+    "dataset_selection": {
+      "completed": "2026-03-01T07:35:35.754543",
+      "selected_accession": "GSE256142",
+      "selected_title": "Variability vs. phenotype: Multimodal analysis of Dravet syndrome brain organoids powered by deep learning",
+      "suitability_score": 50,
+      "n_candidates_shown": 5
+    },
+    "sample_assignment": {
+      "completed": "2026-03-01T07:36:36.581158",
+      "group_counts": {
+        "control": 10,
+        "disease": 8
+      },
+      "n_excluded": 0,
+      "ready_for_deg": true,
+      "groups_file": "data/dravet_syndrome/GSE256142_groups.csv"
+    },
+    "deg_analysis": {
+      "completed": "2026-03-01T07:36:45.933460",
+      "n_disease_samples": 5,
+      "n_control_samples": 8,
+      "n_genes_tested": 26403,
+      "n_significant_up": 1608,
+      "n_significant_down": 1670,
+      "top_upregulated": [
+        "ENSG00000224114",
+        "ENSG00000114374",
+        "ENSG00000067048",
+        "ENSG00000012817",
+        "ENSG00000223482",
+        "ENSG00000165246",
+        "ENSG00000099715",
+        "ENSG00000183878",
+        "ENSG00000291033",
+        "ENSG00000261186"
+      ],
+      "top_downregulated": [
+        "ENSG00000189223",
+        "ENSG00000127399",
+        "ENSG00000230202",
+        "ENSG00000135525",
+        "ENSG00000215030",
+        "ENSG00000286058",
+        "ENSG00000228696",
+        "ENSG00000127903",
+        "ENSG00000188707",
+        "ENSG00000180574"
+      ]
+    },
+    "signature_building": {
+      "completed": "2026-03-01T07:36:49.132267",
+      "n_up": 57,
+      "n_down": 49,
+      "signature_quality": "good",
+      "top_up": [
+        "CACNB4",
+        "HS3ST2",
+        "SYNDIG1",
+        "TTTY14",
+        "CCDC112",
+        "ZNF439",
+        "PCDHA6",
+        "SMIM17",
+        "ETNK1",
+        "PRKY",
+        "TMEM163",
+        "CAMTA1",
+        "PCDHB18P",
+        "NLGN4Y",
+        "BTNL9"
+      ],
+      "top_down": [
+        "LRRC61",
+        "ALG10B",
+        "ARL17B",
+        "SLC2A1",
+        "SH3D19",
+        "ARL17A",
+        "YBX3",
+        "POTEF",
+        "LGR4",
+        "RAX",
+        "SIK1",
+        "WDR72",
+        "IL17RB",
+        "MAN2B1",
+        "ZNF37A"
+      ]
+    },
+    "drug_repurposing": {
+      "completed": "2026-03-01T07:37:19.160543",
+      "source": "l1000fwd",
+      "n_candidates": 48,
+      "n_high_confidence": 48,
+      "n_med_confidence": 0,
+      "result_url": "https://maayanlab.cloud/l1000fwd/#result/69a432efd33550002d585914"
+    }
+  },
+  "warnings": [
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.657114",
+      "message": "GSE301399: Insufficient sample size (2 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.657403",
+      "message": "GSE301399: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.657545",
+      "message": "GSE301399: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.657693",
+      "message": "GSE256142: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.657830",
+      "message": "GSE280241: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.658060",
+      "message": "GSE245113: Insufficient sample size (1 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.658175",
+      "message": "GSE171191: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.658370",
+      "message": "GSE169485: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.658502",
+      "message": "GSE169485: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.661875",
+      "message": "GSE169485: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.662251",
+      "message": "GSE169481: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.662380",
+      "message": "GSE169481: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.662526",
+      "message": "GSE153461: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.662639",
+      "message": "GSE153461: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.662896",
+      "message": "GSE145801: Insufficient sample size (4 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.663010",
+      "message": "GSE145801: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.663143",
+      "message": "GSE136535: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.663268",
+      "message": "GSE136535: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.663418",
+      "message": "GSE128573: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.663544",
+      "message": "GSE128573: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.663817",
+      "message": "GSE111436: Borderline sample size (6 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.663954",
+      "message": "GSE111436: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.664085",
+      "message": "GSE111436: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.664245",
+      "message": "GSE112627: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.664374",
+      "message": "GSE112627: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.664682",
+      "message": "GSE43312: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.664829",
+      "message": "GSE43312: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.665139",
+      "message": "GSM9082361: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.665292",
+      "message": "GSM9082361: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.665446",
+      "message": "GSM9082361: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.665771",
+      "message": "GSM9082360: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.665938",
+      "message": "GSM9082360: Mouse data \u2014 gene ortholog mapping will be required"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.666106",
+      "message": "GSM9082360: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.666454",
+      "message": "GSM8086398: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.666624",
+      "message": "GSM8086398: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.666957",
+      "message": "GSM8086397: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.667121",
+      "message": "GSM8086397: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.667474",
+      "message": "GSM8086396: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.667652",
+      "message": "GSM8086396: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.668022",
+      "message": "GSM8086395: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.668216",
+      "message": "GSM8086395: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.668608",
+      "message": "GSM8086394: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.668806",
+      "message": "GSM8086394: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.669204",
+      "message": "GSM8086393: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.669414",
+      "message": "GSM8086393: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.669838",
+      "message": "GSM8086389: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.670057",
+      "message": "GSM8086389: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.670488",
+      "message": "GSM8086387: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.670710",
+      "message": "GSM8086387: No clear mention of control group in summary"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.671148",
+      "message": "GSM7836933: Insufficient sample size (0 samples) \u2014 need at least 6"
+    },
+    {
+      "step": "geo_search",
+      "time": "2026-03-01T07:35:23.671370",
+      "message": "GSM7836933: No clear mention of control group in summary"
+    }
+  ],
+  "parameters": {
+    "deg_analysis": {
+      "padj_threshold": 0.05,
+      "lfc_threshold": 1.0,
+      "min_count_filter": 10
+    },
+    "signature_building": {
+      "padj_threshold": 0.05,
+      "lfc_threshold": 1.0,
+      "max_genes": 150
+    }
+  },
+  "output_files": {
+    "disease_lookup_raw": "data/dravet_syndrome/Dravet_syndrome_lookup.json",
+    "count_matrix": "data/dravet_syndrome/GSE256142_counts.csv",
+    "sample_metadata": "data/dravet_syndrome/GSE256142_metadata.csv",
+    "sample_groups": "data/dravet_syndrome/GSE256142_groups.csv",
+    "deg_results": "data/dravet_syndrome/GSE256142_deseq2_results.csv",
+    "signature_json": "data/dravet_syndrome/GSE256142_signature.json",
+    "signature_csv": "data/dravet_syndrome/GSE256142_signature.csv",
+    "drug_candidates_json": "data/dravet_syndrome/GSE256142_drug_candidates.json",
+    "drug_candidates_csv": "data/dravet_syndrome/GSE256142_drug_candidates.csv"
+  },
+  "dataset": {
+    "accession": "GSE256142",
+    "title": "Variability vs. phenotype: Multimodal analysis of Dravet syndrome brain organoids powered by deep learning",
+    "n_samples": 18,
+    "n_disease": 8,
+    "n_control": 10,
+    "organism": "Homo sapiens",
+    "tissue": "",
+    "data_source": "supplementary_counts",
+    "geo_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE256142"
+  },
+  "summary_stats": {
+    "n_genes_tested": 26403,
+    "n_significant_up": 1608,
+    "n_significant_down": 1670,
+    "n_signature_up": 57,
+    "n_signature_down": 49,
+    "n_drug_candidates": 48,
+    "n_high_confidence_drugs": 48
+  }
+}

@@ -166,45 +166,42 @@ def _try_get_supplementary_counts(accession: str,
         else:
             print(f"  Found cached: {filename}")
 
-        # Parse the file — handle quoting issues common in GEO files
-        try:
-            if dest.endswith(".gz"):
-                df = pd.read_csv(dest, sep=",", index_col=0,
-                                 compression="gzip", quoting=csv.QUOTE_NONE)
-            else:
-                df = pd.read_csv(dest, sep=",", index_col=0,
-                                 quoting=csv.QUOTE_NONE)
-
-            # Strip stray quote characters from gene ID index
-            df.index = df.index.str.strip('"')
-
-            clean_path = os.path.join(data_dir, f"{accession}_counts.csv")
-            df.to_csv(clean_path, quoting=csv.QUOTE_NONE)
-            print(f"  Count matrix saved: {clean_path} "
-                  f"({df.shape[0]} genes x {df.shape[1]} samples)")
-            return clean_path
-
-        except Exception as e:
-            print(f"  Could not parse {filename}: {e}")
-            # Try tab-separated as fallback
+        # Parse the file — try comma, tab, and semicolon delimiters.
+        # Validate that the result has multiple numeric columns; if not, the
+        # wrong delimiter was used (pandas parses silently but produces garbage).
+        compression = "gzip" if dest.endswith(".gz") else None
+        parsed = False
+        for sep_name, sep in [("comma", ","), ("tab", "\t"), ("semicolon", ";")]:
             try:
-                if dest.endswith(".gz"):
-                    df = pd.read_csv(dest, sep="\t", index_col=0,
-                                     compression="gzip", quoting=csv.QUOTE_NONE)
-                else:
-                    df = pd.read_csv(dest, sep="\t", index_col=0,
-                                     quoting=csv.QUOTE_NONE)
-
+                df = pd.read_csv(dest, sep=sep, index_col=0,
+                                 compression=compression, quoting=csv.QUOTE_NONE)
                 df.index = df.index.str.strip('"')
+                # Strip trailing commas from column names (artefact of some GEO files)
+                df.columns = [c.rstrip(',') for c in df.columns]
+                # Drop non-numeric annotation columns (e.g. gene_name, gene_biotype).
+                # Count matrix sample columns should be entirely numeric; text
+                # annotation columns will fail conversion and are not needed for DESeq2.
+                df_num = df.apply(pd.to_numeric, errors='coerce')
+                keep   = df_num.columns[df_num.notna().mean() > 0.9]
+                df     = df_num[keep]
+                if df.shape[1] < 2:
+                    print(f"  {sep_name}-separated: only {df.shape[1]} numeric "
+                          f"column(s) — trying next delimiter")
+                    continue
                 clean_path = os.path.join(data_dir, f"{accession}_counts.csv")
-                df.to_csv(clean_path, quoting=csv.QUOTE_NONE)
-                print(f"  Count matrix saved (tab-separated): {clean_path} "
+                df.to_csv(clean_path)
+                print(f"  Count matrix saved ({sep_name}-separated): {clean_path} "
                       f"({df.shape[0]} genes x {df.shape[1]} samples)")
-                return clean_path
-
-            except Exception as e2:
-                print(f"  Tab-separated parse also failed: {e2}")
+                parsed = True
+                break
+            except Exception as e:
+                print(f"  {sep_name}-separated parse failed: {e}")
                 continue
+
+        if parsed:
+            return clean_path
+        print(f"  Could not parse {filename} with any delimiter")
+        continue
 
     print("  No supplementary count file found or downloaded successfully")
     return None

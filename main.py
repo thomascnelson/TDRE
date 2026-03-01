@@ -180,9 +180,13 @@ def run_pipeline(disease_name: str):
 
     # ── Step 4: Differential expression ──────────────────────────────────────
     _header("Step 4: Differential Expression Analysis")
+    # Merge title-keyed and GSM-keyed dicts so run_deseq2 can match
+    # count matrix columns regardless of whether they are sample titles or
+    # GSM accession IDs (varies by dataset).
+    merged_groups = {**groups["sample_groups"], **groups["sample_groups_by_gsm"]}
     deg = run_deseq2(
         count_matrix_path = download["count_matrix_path"],
-        sample_groups     = groups["sample_groups"],
+        sample_groups     = merged_groups,
         output_prefix     = accession,
         data_dir          = data_dir,
         provenance        = prov

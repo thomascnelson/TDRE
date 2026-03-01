@@ -1,6 +1,6 @@
 # Drug Repurposing Report: Friedreich ataxia
 
-**Generated:** 2026-02-28 08:21  
+**Generated:** 2026-03-01 08:14  
 **Pipeline version:** 0.1.0  
 
 ---
@@ -80,16 +80,16 @@ This analysis identified 48 drug repurposing candidates for Friedreich ataxia us
 **Downregulated genes:** 39  
 
 **Top upregulated:**  
-`PIK3R1`, `FXR2`, `RERGL`, `TGFB2`, `ZDHHC21`, `BPTF`, `PRMT1`, `KCNB1`, `TNPO1`, `FRG1`, `HSPA5`, `ATP2B1`, `RBM25`, `NSUN6`, `DDX6`
+`DENND5B`, `MYOM1`, `NDRG2`, `PIK3R1`, `NUCKS1`, `MIR133A1HG`, `RBM25`, `YTHDF3`, `EIF5B`, `CAVIN1`, `PTMA`, `EZR`, `RERGL`, `ZDHHC21`, `BTBD7`
 
 **Top downregulated:**  
-`IMPA2`, `JTB`, `ATP5MK`, `DECR2`, `MRLN`, `HLA-B`, `MRPS24`, `MACROD1`, `POTEF`, `NDUFA7`, `EFHD1`, `DGLUCY`, `MT-CO1`, `FBLN2`, `CHCHD10`
+`COX6A2`, `GABARAP`, `HLA-B`, `VPS28`, `MT-CO1`, `MRPS24`, `JTB`, `SLC29A1`, `NPAS2`, `ABHD14A`, `HCFC1`, `EFHD1`, `DBET`, `ATP5MK`, `ATP5F1D`
 
 ## Drug Repurposing Candidates
 
 Drugs are ranked by L1000FWD combined score (more negative = stronger reversal of disease signature).  
 
-**Interactive results:** [https://maayanlab.cloud/l1000fwd/#result/69a2ebc8d33550002d585903](https://maayanlab.cloud/l1000fwd/#result/69a2ebc8d33550002d585903)  
+**Interactive results:** [https://maayanlab.cloud/l1000fwd/#result/69a43bbcd33550002d585915](https://maayanlab.cloud/l1000fwd/#result/69a43bbcd33550002d585915)  
 
 | Rank | Drug | Score | Q-value | Confidence | Cell Line | MoA | Target |
 |------|------|-------|---------|------------|-----------|-----|--------|
@@ -110,74 +110,74 @@ Drugs are ranked by L1000FWD combined score (more negative = stronger reversal o
 
 The following issues were flagged during the analysis:
 
-- **geo_search** (2026-02-28): GSE262763: Insufficient sample size (1 samples) — need at least 6
-- **geo_search** (2026-02-28): GSE262763: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE255810: Borderline sample size (6 samples) — DESeq2 results may be underpowered
-- **geo_search** (2026-02-28): GSE255810: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE271798: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE232826: Borderline sample size (8 samples) — DESeq2 results may be underpowered
-- **geo_search** (2026-02-28): GSE232826: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE232826: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE261655: Borderline sample size (8 samples) — DESeq2 results may be underpowered
-- **geo_search** (2026-02-28): GSE261655: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE261654: Insufficient sample size (2 samples) — need at least 6
-- **geo_search** (2026-02-28): GSE261654: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE261653: Borderline sample size (6 samples) — DESeq2 results may be underpowered
-- **geo_search** (2026-02-28): GSE261653: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE242192: Insufficient sample size (4 samples) — need at least 6
-- **geo_search** (2026-02-28): GSE239980: Borderline sample size (8 samples) — DESeq2 results may be underpowered
-- **geo_search** (2026-02-28): GSE239980: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE239980: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE229143: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE200907: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE204808: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE203632: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE176575: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE145115: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE148212: Insufficient sample size (2 samples) — need at least 6
-- **geo_search** (2026-02-28): GSE148212: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE133755: Insufficient sample size (3 samples) — need at least 6
-- **geo_search** (2026-02-28): GSE133755: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE108200: Insufficient sample size (2 samples) — need at least 6
-- **geo_search** (2026-02-28): GSE108200: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE102008: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE109510: Borderline sample size (6 samples) — DESeq2 results may be underpowered
-- **geo_search** (2026-02-28): GSE109510: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE109510: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE98790: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE98790: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE105052: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE65399: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE31208: Borderline sample size (8 samples) — DESeq2 results may be underpowered
-- **geo_search** (2026-02-28): GSE31208: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE30933: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE22651: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE15848: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE15848: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE15843: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSE15843: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE11425: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSE10745: Mouse data — gene ortholog mapping will be required
-- **geo_search** (2026-02-28): GSM7797185: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797185: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSM7797184: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797184: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSM7797183: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797183: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSM7797182: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797182: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSM7797181: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797181: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSM7797180: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797180: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSM7797179: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797179: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSM7797178: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797178: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSM7797177: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797177: No clear mention of control group in summary
-- **geo_search** (2026-02-28): GSM7797176: Insufficient sample size (0 samples) — need at least 6
-- **geo_search** (2026-02-28): GSM7797176: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE262763: Insufficient sample size (1 samples) — need at least 6
+- **geo_search** (2026-03-01): GSE262763: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE255810: Borderline sample size (6 samples) — DESeq2 results may be underpowered
+- **geo_search** (2026-03-01): GSE255810: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE271798: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE232826: Borderline sample size (8 samples) — DESeq2 results may be underpowered
+- **geo_search** (2026-03-01): GSE232826: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE232826: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE261655: Borderline sample size (8 samples) — DESeq2 results may be underpowered
+- **geo_search** (2026-03-01): GSE261655: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE261654: Insufficient sample size (2 samples) — need at least 6
+- **geo_search** (2026-03-01): GSE261654: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE261653: Borderline sample size (6 samples) — DESeq2 results may be underpowered
+- **geo_search** (2026-03-01): GSE261653: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE242192: Insufficient sample size (4 samples) — need at least 6
+- **geo_search** (2026-03-01): GSE239980: Borderline sample size (8 samples) — DESeq2 results may be underpowered
+- **geo_search** (2026-03-01): GSE239980: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE239980: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE229143: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE200907: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE204808: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE203632: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE176575: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE145115: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE148212: Insufficient sample size (2 samples) — need at least 6
+- **geo_search** (2026-03-01): GSE148212: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE133755: Insufficient sample size (3 samples) — need at least 6
+- **geo_search** (2026-03-01): GSE133755: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE108200: Insufficient sample size (2 samples) — need at least 6
+- **geo_search** (2026-03-01): GSE108200: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE102008: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE109510: Borderline sample size (6 samples) — DESeq2 results may be underpowered
+- **geo_search** (2026-03-01): GSE109510: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE109510: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE98790: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE98790: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE105052: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE65399: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE31208: Borderline sample size (8 samples) — DESeq2 results may be underpowered
+- **geo_search** (2026-03-01): GSE31208: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE30933: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE22651: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE15848: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE15848: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE15843: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSE15843: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE11425: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSE10745: Mouse data — gene ortholog mapping will be required
+- **geo_search** (2026-03-01): GSM7797185: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797185: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSM7797184: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797184: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSM7797183: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797183: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSM7797182: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797182: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSM7797181: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797181: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSM7797180: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797180: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSM7797179: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797179: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSM7797178: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797178: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSM7797177: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797177: No clear mention of control group in summary
+- **geo_search** (2026-03-01): GSM7797176: Insufficient sample size (0 samples) — need at least 6
+- **geo_search** (2026-03-01): GSM7797176: No clear mention of control group in summary
 
 ## Output Files
 

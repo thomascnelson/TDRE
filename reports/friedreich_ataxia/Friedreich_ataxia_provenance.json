@@ -1,10 +1,10 @@
 {
   "disease_name": "Friedreich ataxia",
-  "created": "2026-02-28T08:19:16.897500",
-  "last_updated": "2026-02-28T08:21:27.614795",
+  "created": "2026-03-01T08:11:36.351061",
+  "last_updated": "2026-03-01T08:14:53.108909",
   "pipeline_steps": {
     "disease_lookup": {
-      "completed": "2026-02-28T08:19:19.486286",
+      "completed": "2026-03-01T08:11:38.529216",
       "mesh_terms": [
         "68005621",
         "67566594",
@@ -20,13 +20,13 @@
       "orphanet_found": true
     },
     "feasibility_assessment": {
-      "completed": "2026-02-28T08:19:19.505650",
+      "completed": "2026-03-01T08:11:38.549140",
       "feasibility_score": 100,
       "flags": [],
       "proceed_recommended": true
     },
     "geo_search": {
-      "completed": "2026-02-28T08:19:38.635482",
+      "completed": "2026-03-01T08:11:56.755833",
       "disease_name": "Friedreich ataxia",
       "n_datasets_found": 50,
       "rejected_datasets": [
@@ -143,14 +143,14 @@
       ]
     },
     "dataset_selection": {
-      "completed": "2026-02-28T08:19:59.212098",
+      "completed": "2026-03-01T08:13:04.733249",
       "selected_accession": "GSE226646",
       "selected_title": "Skeletal muscle transcriptomics dissects the pathogenesis of Friedreich's Ataxia",
       "suitability_score": 80,
       "n_candidates_shown": 5
     },
     "sample_assignment": {
-      "completed": "2026-02-28T08:20:48.869337",
+      "completed": "2026-03-01T08:14:12.750940",
       "group_counts": {
         "disease": 7,
         "exclude": 7,
@@ -161,7 +161,7 @@
       "groups_file": "data/friedreich_ataxia/GSE226646_groups.csv"
     },
     "deg_analysis": {
-      "completed": "2026-02-28T08:20:55.116048",
+      "completed": "2026-03-01T08:14:18.837269",
       "n_disease_samples": 7,
       "n_control_samples": 6,
       "n_genes_tested": 14592,
@@ -193,393 +193,393 @@
       ]
     },
     "signature_building": {
-      "completed": "2026-02-28T08:20:58.486677",
+      "completed": "2026-03-01T08:14:22.453234",
       "n_up": 68,
       "n_down": 39,
       "signature_quality": "good",
       "top_up": [
+        "DENND5B",
+        "MYOM1",
+        "NDRG2",
         "PIK3R1",
-        "FXR2",
-        "RERGL",
-        "TGFB2",
-        "ZDHHC21",
-        "BPTF",
-        "PRMT1",
-        "KCNB1",
-        "TNPO1",
-        "FRG1",
-        "HSPA5",
-        "ATP2B1",
+        "NUCKS1",
+        "MIR133A1HG",
         "RBM25",
-        "NSUN6",
-        "DDX6"
+        "YTHDF3",
+        "EIF5B",
+        "CAVIN1",
+        "PTMA",
+        "EZR",
+        "RERGL",
+        "ZDHHC21",
+        "BTBD7"
       ],
       "top_down": [
-        "IMPA2",
-        "JTB",
-        "ATP5MK",
-        "DECR2",
-        "MRLN",
+        "COX6A2",
+        "GABARAP",
         "HLA-B",
-        "MRPS24",
-        "MACROD1",
-        "POTEF",
-        "NDUFA7",
-        "EFHD1",
-        "DGLUCY",
+        "VPS28",
         "MT-CO1",
-        "FBLN2",
-        "CHCHD10"
+        "MRPS24",
+        "JTB",
+        "SLC29A1",
+        "NPAS2",
+        "ABHD14A",
+        "HCFC1",
+        "EFHD1",
+        "DBET",
+        "ATP5MK",
+        "ATP5F1D"
       ]
     },
     "drug_repurposing": {
-      "completed": "2026-02-28T08:21:27.611404",
+      "completed": "2026-03-01T08:14:53.105270",
       "source": "l1000fwd",
       "n_candidates": 48,
       "n_high_confidence": 4,
       "n_med_confidence": 37,
-      "result_url": "https://maayanlab.cloud/l1000fwd/#result/69a2ebc8d33550002d585903"
+      "result_url": "https://maayanlab.cloud/l1000fwd/#result/69a43bbcd33550002d585915"
     }
   },
   "warnings": [
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.637939",
+      "time": "2026-03-01T08:11:56.758512",
       "message": "GSE262763: Insufficient sample size (1 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.638057",
+      "time": "2026-03-01T08:11:56.758838",
       "message": "GSE262763: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.638162",
+      "time": "2026-03-01T08:11:56.759144",
       "message": "GSE255810: Borderline sample size (6 samples) \u2014 DESeq2 results may be underpowered"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.638267",
+      "time": "2026-03-01T08:11:56.759481",
       "message": "GSE255810: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.638388",
+      "time": "2026-03-01T08:11:56.759603",
       "message": "GSE271798: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.638594",
+      "time": "2026-03-01T08:11:56.759812",
       "message": "GSE232826: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.638683",
+      "time": "2026-03-01T08:11:56.759939",
       "message": "GSE232826: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.639336",
+      "time": "2026-03-01T08:11:56.760741",
       "message": "GSE232826: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.639464",
+      "time": "2026-03-01T08:11:56.760887",
       "message": "GSE261655: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.639555",
+      "time": "2026-03-01T08:11:56.761010",
       "message": "GSE261655: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.639764",
+      "time": "2026-03-01T08:11:56.761243",
       "message": "GSE261654: Insufficient sample size (2 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.639878",
+      "time": "2026-03-01T08:11:56.761354",
       "message": "GSE261654: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.640090",
+      "time": "2026-03-01T08:11:56.761487",
       "message": "GSE261653: Borderline sample size (6 samples) \u2014 DESeq2 results may be underpowered"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.640246",
+      "time": "2026-03-01T08:11:56.761606",
       "message": "GSE261653: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.640537",
+      "time": "2026-03-01T08:11:56.761852",
       "message": "GSE242192: Insufficient sample size (4 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.640824",
+      "time": "2026-03-01T08:11:56.762100",
       "message": "GSE239980: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.640986",
+      "time": "2026-03-01T08:11:56.762233",
       "message": "GSE239980: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.641130",
+      "time": "2026-03-01T08:11:56.762369",
       "message": "GSE239980: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.641276",
+      "time": "2026-03-01T08:11:56.762512",
       "message": "GSE229143: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.641423",
+      "time": "2026-03-01T08:11:56.762654",
       "message": "GSE200907: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.641552",
+      "time": "2026-03-01T08:11:56.762793",
       "message": "GSE204808: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.641691",
+      "time": "2026-03-01T08:11:56.762921",
       "message": "GSE203632: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.641955",
+      "time": "2026-03-01T08:11:56.763177",
       "message": "GSE176575: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.642107",
+      "time": "2026-03-01T08:11:56.763316",
       "message": "GSE145115: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.642387",
+      "time": "2026-03-01T08:11:56.763587",
       "message": "GSE148212: Insufficient sample size (2 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.642527",
+      "time": "2026-03-01T08:11:56.763733",
       "message": "GSE148212: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.642807",
+      "time": "2026-03-01T08:11:56.764026",
       "message": "GSE133755: Insufficient sample size (3 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.642963",
+      "time": "2026-03-01T08:11:56.764173",
       "message": "GSE133755: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.643269",
+      "time": "2026-03-01T08:11:56.764490",
       "message": "GSE108200: Insufficient sample size (2 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.643434",
+      "time": "2026-03-01T08:11:56.764654",
       "message": "GSE108200: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.643606",
+      "time": "2026-03-01T08:11:56.764818",
       "message": "GSE102008: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.643917",
+      "time": "2026-03-01T08:11:56.765152",
       "message": "GSE109510: Borderline sample size (6 samples) \u2014 DESeq2 results may be underpowered"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.644075",
+      "time": "2026-03-01T08:11:56.765341",
       "message": "GSE109510: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.644251",
+      "time": "2026-03-01T08:11:56.765538",
       "message": "GSE109510: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.644429",
+      "time": "2026-03-01T08:11:56.765731",
       "message": "GSE98790: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.644589",
+      "time": "2026-03-01T08:11:56.765920",
       "message": "GSE98790: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.644789",
+      "time": "2026-03-01T08:11:56.766121",
       "message": "GSE105052: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.644971",
+      "time": "2026-03-01T08:11:56.766296",
       "message": "GSE65399: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.645138",
+      "time": "2026-03-01T08:11:56.766479",
       "message": "GSE31208: Borderline sample size (8 samples) \u2014 DESeq2 results may be underpowered"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.645306",
+      "time": "2026-03-01T08:11:56.766648",
       "message": "GSE31208: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.645495",
+      "time": "2026-03-01T08:11:56.766840",
       "message": "GSE30933: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.645680",
+      "time": "2026-03-01T08:11:56.767019",
       "message": "GSE22651: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.645858",
+      "time": "2026-03-01T08:11:56.767199",
       "message": "GSE15848: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.646042",
+      "time": "2026-03-01T08:11:56.767374",
       "message": "GSE15848: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.646439",
+      "time": "2026-03-01T08:11:56.767757",
       "message": "GSE15843: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.646637",
+      "time": "2026-03-01T08:11:56.767956",
       "message": "GSE15843: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.647024",
+      "time": "2026-03-01T08:11:56.768342",
       "message": "GSE11425: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.647231",
+      "time": "2026-03-01T08:11:56.768566",
       "message": "GSE10745: Mouse data \u2014 gene ortholog mapping will be required"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.647630",
+      "time": "2026-03-01T08:11:56.768979",
       "message": "GSM7797185: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.647826",
+      "time": "2026-03-01T08:11:56.769187",
       "message": "GSM7797185: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.648258",
+      "time": "2026-03-01T08:11:56.769616",
       "message": "GSM7797184: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.648481",
+      "time": "2026-03-01T08:11:56.769826",
       "message": "GSM7797184: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.648938",
+      "time": "2026-03-01T08:11:56.770252",
       "message": "GSM7797183: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.649834",
+      "time": "2026-03-01T08:11:56.773211",
       "message": "GSM7797183: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.650461",
+      "time": "2026-03-01T08:11:56.773690",
       "message": "GSM7797182: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.650723",
+      "time": "2026-03-01T08:11:56.773949",
       "message": "GSM7797182: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.651157",
+      "time": "2026-03-01T08:11:56.774447",
       "message": "GSM7797181: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.651392",
+      "time": "2026-03-01T08:11:56.774670",
       "message": "GSM7797181: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.651840",
+      "time": "2026-03-01T08:11:56.775130",
       "message": "GSM7797180: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.652082",
+      "time": "2026-03-01T08:11:56.775363",
       "message": "GSM7797180: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.652551",
+      "time": "2026-03-01T08:11:56.775862",
       "message": "GSM7797179: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.652789",
+      "time": "2026-03-01T08:11:56.776091",
       "message": "GSM7797179: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.653272",
+      "time": "2026-03-01T08:11:56.776581",
       "message": "GSM7797178: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.653507",
+      "time": "2026-03-01T08:11:56.776829",
       "message": "GSM7797178: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.653997",
+      "time": "2026-03-01T08:11:56.777323",
       "message": "GSM7797177: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.654248",
+      "time": "2026-03-01T08:11:56.777582",
       "message": "GSM7797177: No clear mention of control group in summary"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.654750",
+      "time": "2026-03-01T08:11:56.778084",
       "message": "GSM7797176: Insufficient sample size (0 samples) \u2014 need at least 6"
     },
     {
       "step": "geo_search",
-      "time": "2026-02-28T08:19:38.655008",
+      "time": "2026-03-01T08:11:56.778341",
       "message": "GSM7797176: No clear mention of control group in summary"
     }
   ],
