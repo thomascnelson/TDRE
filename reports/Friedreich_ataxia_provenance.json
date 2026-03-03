@@ -1,0 +1,141 @@
+{
+  "disease_name": "Friedreich ataxia",
+  "created": "2026-03-03T10:08:52.571841",
+  "last_updated": "2026-03-03T10:11:44.853303",
+  "pipeline_steps": {
+    "sample_assignment": {
+      "completed": "2026-03-03T10:11:04.953146",
+      "group_counts": {
+        "disease": 7,
+        "exclude": 7,
+        "control": 6
+      },
+      "n_excluded": 7,
+      "ready_for_deg": true,
+      "groups_file": "data/GSE226646/GSE226646_groups.csv"
+    },
+    "deg_analysis": {
+      "completed": "2026-03-03T10:11:11.098391",
+      "n_disease_samples": 7,
+      "n_control_samples": 6,
+      "n_genes_tested": 14592,
+      "n_significant_up": 560,
+      "n_significant_down": 619,
+      "top_upregulated": [
+        "TGFB2",
+        "EIF5B",
+        "SMARCC1",
+        "FXR1",
+        "S100A4",
+        "CSDE1",
+        "PTMA",
+        "SYNE2",
+        "ZBTB20",
+        "FBXW7"
+      ],
+      "top_downregulated": [
+        "RP3-340B19.2",
+        "NDUFS7",
+        "RPS15AP1",
+        "FBLN2",
+        "IMPA2",
+        "MTCO1P53",
+        "RPL13AP5",
+        "HLA-B",
+        "EFHD1",
+        "NDUFB3"
+      ]
+    },
+    "signature_building": {
+      "completed": "2026-03-03T10:11:14.498796",
+      "n_up": 68,
+      "n_down": 39,
+      "signature_quality": "good",
+      "top_up": [
+        "TNPO1",
+        "MMS19",
+        "NUCKS1",
+        "DENND5B",
+        "BPTF",
+        "SMARCC1",
+        "CEBPZ",
+        "PRMT1",
+        "TGFB2",
+        "NDRG2",
+        "ZBTB20",
+        "P2RY1",
+        "EZR",
+        "ASPH",
+        "APPL1"
+      ],
+      "top_down": [
+        "ADD1",
+        "PFDN5",
+        "ATP5F1D",
+        "FBLN2",
+        "COX6A2",
+        "HCFC1",
+        "ATP5F1A",
+        "ADH1B",
+        "EFHD1",
+        "MRPL36",
+        "IMPA2",
+        "MRLN",
+        "NPAS2",
+        "SLC29A1",
+        "CHCHD10"
+      ]
+    },
+    "drug_repurposing": {
+      "completed": "2026-03-03T10:11:44.833375",
+      "source": "l1000fwd",
+      "n_candidates": 48,
+      "n_high_confidence": 4,
+      "n_med_confidence": 37,
+      "result_url": "https://maayanlab.cloud/l1000fwd/#result/69a6fa20d33550002d58592b"
+    }
+  },
+  "warnings": [],
+  "parameters": {
+    "deg_analysis": {
+      "padj_threshold": 0.05,
+      "lfc_threshold": 1.0,
+      "min_count_filter": 10
+    },
+    "signature_building": {
+      "padj_threshold": 0.05,
+      "lfc_threshold": 1.0,
+      "max_genes": 150
+    }
+  },
+  "output_files": {
+    "count_matrix": "data/GSE226646/GSE226646_counts.csv",
+    "sample_metadata": "data/GSE226646/GSE226646_metadata.csv",
+    "sample_groups": "data/GSE226646/GSE226646_groups.csv",
+    "deg_results": "data/GSE226646/GSE226646_deseq2_results.csv",
+    "signature_json": "data/GSE226646/GSE226646_signature.json",
+    "signature_csv": "data/GSE226646/GSE226646_signature.csv",
+    "drug_candidates_json": "data/GSE226646/GSE226646_drug_candidates.json",
+    "drug_candidates_csv": "data/GSE226646/GSE226646_drug_candidates.csv"
+  },
+  "dataset": {
+    "accession": "GSE226646",
+    "title": "Skeletal muscle transcriptomics dissects the pathogenesis of Friedreich's Ataxia",
+    "n_samples": 20,
+    "n_disease": 7,
+    "n_control": 6,
+    "organism": "",
+    "tissue": "",
+    "data_source": "supplementary_counts",
+    "geo_url": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE226646"
+  },
+  "summary_stats": {
+    "n_genes_tested": 14592,
+    "n_significant_up": 560,
+    "n_significant_down": 619,
+    "n_signature_up": 68,
+    "n_signature_down": 39,
+    "n_drug_candidates": 48,
+    "n_high_confidence_drugs": 4
+  }
+}
