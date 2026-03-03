@@ -70,7 +70,7 @@ source .venv/bin/activate        # macOS / Linux
 or
 
 ```
-conda create -n tdre conda --file requirements.txt
+conda create -n tdre --file requirements.txt
 ```
 
 ### 3. Install dependencies
