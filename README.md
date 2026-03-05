@@ -62,10 +62,15 @@ python3 --version
 
 ### 2. Create a virtual environment
 
-```bash
+```
 python3 -m venv .venv
 source .venv/bin/activate        # macOS / Linux
 # .venv\Scripts\activate         # Windows
+```
+or
+
+```
+conda create -n tdre --file requirements.txt
 ```
 
 ### 3. Install dependencies
