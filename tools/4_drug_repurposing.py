@@ -426,44 +426,72 @@ def find_drug_candidates(signature: dict, output_prefix: str = "drug_candidates"
 
     return result
 
-### TEST ROUTINE
-
 if __name__ == "__main__":
+    import argparse
     from dotenv import load_dotenv
     load_dotenv()
 
-    SIGNATURE_FILE = "data/GSE226646/GSE226646_signature.json"
+    parser = argparse.ArgumentParser(
+        description=(
+            "Tool 4 — Query L1000FWD for drugs that reverse the disease signature.\n"
+            "Falls back to Enrichr if L1000FWD is unavailable.\n"
+            "Produces: {accession}_drug_candidates.json and _drug_candidates.csv"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument("-a", "--accession", required=True,
+                        help="GEO accession number (e.g. GSE297335)")
+    parser.add_argument("-d", "--disease", required=True,
+                        help="Disease name for the provenance log")
+    parser.add_argument("--signature",
+                        help="Path to signature JSON "
+                             "(default: data/{accession}/{accession}_signature.json)")
+    parser.add_argument("--data-dir",
+                        help="Output directory (default: data/{accession})")
+    args = parser.parse_args()
 
-    # Create the provenance log
-    prov = ProvenanceLog.get_or_create("Friedreich ataxia")
+    accession      = args.accession.strip().upper()
+    data_dir       = args.data_dir or os.path.join("data", accession)
+    signature_path = args.signature or os.path.join(
+        data_dir, f"{accession}_signature.json"
+    )
 
-    print(f"Loading signature from {SIGNATURE_FILE}...")
-    with open(SIGNATURE_FILE) as f:
+    prov = ProvenanceLog.get_or_create(args.disease)
+
+    print(f"\nLoading signature from {signature_path}...")
+    with open(signature_path) as f:
         signature = json.load(f)
 
-    print(f"Signature: {signature['n_up']} up, {signature['n_down']} down genes")
-    print(f"Quality:   {signature['signature_quality']}\n")
+    print(f"  {signature['n_up']} upregulated, {signature['n_down']} downregulated genes")
+    print(f"  Quality: {signature['signature_quality']}\n")
 
-    result = find_drug_candidates(signature, output_prefix="drug_candidates",
-                                  data_dir="data/GSE226646", provenance=prov)
+    result = find_drug_candidates(
+        signature     = signature,
+        output_prefix = f"{accession}_drug_candidates",
+        data_dir      = data_dir,
+        provenance    = prov
+    )
 
-    print(f"\nSource used:  {result['source_used']}")
-    print(f"Candidates:   {result['n_candidates']}")
+    print(f"\n  Source used  : {result['source_used']}")
+    print(f"  Candidates   : {result['n_candidates']}")
     if result.get("result_url"):
-        print(f"View online:  {result['result_url']}")
+        print(f"  View online  : {result['result_url']}")
 
-    print(f"\nTop drug candidates (signature reversal):")
-    print(f"{'Drug':<30} {'Score':>8}  {'Confidence':<10}  {'Cell':>8}  MoA")
-    print("-" * 80)
+    print(f"\n  {'Drug':<30} {'Score':>8}  {'Conf':<8}  {'Phase':<12}  {'Cell':<8}  MoA")
+    print(f"  {'-'*30} {'-'*8}  {'-'*8}  {'-'*12}  {'-'*8}  ----")
     for drug in result["top_candidates"]:
+        name = drug["drug_name"]
+        if len(name) > 29:
+            name = name[:26] + "..."
         print(
-            f"{drug['drug_name']:<30} "
-            f"{str(drug.get('score', 'N/A')):>8}  "
-            f"{drug.get('confidence',''):.<10}  "
-            f"{drug.get('cell_line',''):>8}  "
+            f"  {name:<30} "
+            f"{str(drug.get('score', '')):>8}  "
+            f"{drug.get('confidence', ''):<8}  "
+            f"{drug.get('clinical_phase', ''):<12}  "
+            f"{drug.get('cell_line', ''):<8}  "
             f"{drug.get('moa', '')}"
         )
 
-    print(f"\nFull results: {result['csv_path']}")
+    print(f"\n  Full results : {result['csv_path']}")
 
 

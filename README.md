@@ -143,14 +143,39 @@ DESeq2 requires **at least 3 samples in each group**.
 
 ## Running tools individually
 
-Each tool can be run standalone for development or debugging by executing it directly. Edit the `COUNT_MATRIX`, `GROUPS_FILE`, etc. paths at the bottom of each file to point to your data.
+Each tool can be run as a standalone script. Pass `--help` to see all options.
+
+**Required for every tool:** `-a / --accession` and `-d / --disease`. All file paths default to the standard `data/{accession}/` layout and can be overridden explicitly.
 
 ```bash
-python tools/1_geo_download.py      # download + assign groups
-python tools/2_deg_analysis.py      # DESeq2
-python tools/3_signature.py         # build signature
-python tools/4_drug_repurposing.py  # query L1000FWD
-python utils/provenance.py          # generate a report from an existing log
+# Tool 1 — download GEO data + interactive sample group assignment
+python tools/1_geo_download.py -a GSE297335 -d "Barth Syndrome"
+
+# Tool 2 — DESeq2 differential expression
+python tools/2_deg_analysis.py -a GSE297335 -d "Barth Syndrome"
+# with relaxed thresholds:
+python tools/2_deg_analysis.py -a GSE297335 -d "Barth Syndrome" --padj 0.1 --lfc 0.5
+
+# Tool 3 — build disease transcriptomic signature
+python tools/3_signature.py -a GSE297335 -d "Barth Syndrome"
+# with custom signature size:
+python tools/3_signature.py -a GSE297335 -d "Barth Syndrome" --max-genes 200
+
+# Tool 4 — query L1000FWD for drug candidates
+python tools/4_drug_repurposing.py -a GSE297335 -d "Barth Syndrome"
+```
+
+**Explicit path overrides** (useful if files are in non-standard locations):
+
+```bash
+python tools/2_deg_analysis.py -a GSE297335 -d "Barth Syndrome" \
+    --counts /path/to/counts.csv \
+    --groups /path/to/groups.csv \
+    --data-dir /path/to/output/
+
+python tools/4_drug_repurposing.py -a GSE297335 -d "Barth Syndrome" \
+    --signature /path/to/signature.json \
+    --data-dir /path/to/output/
 ```
 
 ---

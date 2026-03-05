@@ -131,30 +131,70 @@ def run_deseq2(count_matrix_path: str, groups_path: str, output_prefix: str = "d
 
 
 
-### TEST ROUTINE
 if __name__ == "__main__":
+    import argparse
     from dotenv import load_dotenv
     load_dotenv()
 
-    # These files were created by Tool 1 — adjust paths if needed
-    COUNT_MATRIX = "data/GSE226646/GSE226646_counts.csv"
-    GROUPS_FILE  = "data/GSE226646/GSE226646_groups.csv"
+    parser = argparse.ArgumentParser(
+        description=(
+            "Tool 2 — Run DESeq2 differential gene expression analysis.\n"
+            "Requires the count matrix and group assignments produced by Tool 1.\n"
+            "Produces: {accession}_deseq2_results.csv"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument("-a", "--accession", required=True,
+                        help="GEO accession number (e.g. GSE297335)")
+    parser.add_argument("-d", "--disease", required=True,
+                        help="Disease name for the provenance log")
+    parser.add_argument("--counts",
+                        help="Path to count matrix CSV "
+                             "(default: data/{accession}/{accession}_counts.csv)")
+    parser.add_argument("--groups",
+                        help="Path to sample groups CSV "
+                             "(default: data/{accession}/{accession}_groups.csv)")
+    parser.add_argument("--data-dir",
+                        help="Output directory (default: data/{accession})")
+    parser.add_argument("--padj", type=float, default=0.05,
+                        help="Adjusted p-value threshold (default: 0.05)")
+    parser.add_argument("--lfc", type=float, default=1.0,
+                        help="log2 fold-change threshold (default: 1.0)")
+    parser.add_argument("--min-count", type=int, default=10,
+                        help="Minimum total count filter per gene (default: 10)")
+    args = parser.parse_args()
 
-    # Create the provenance log
-    prov = ProvenanceLog.get_or_create("Friedreich ataxia")
+    accession = args.accession.strip().upper()
+    data_dir  = args.data_dir or os.path.join("data", accession)
+    counts    = args.counts   or os.path.join(data_dir, f"{accession}_counts.csv")
+    groups    = args.groups   or os.path.join(data_dir, f"{accession}_groups.csv")
 
-    print(f"\nRunning DESeq2 on {COUNT_MATRIX}...")
-    result = run_deseq2(COUNT_MATRIX, GROUPS_FILE, output_prefix="GSE226646",
-                        data_dir="data/GSE226646", provenance=prov)
+    prov = ProvenanceLog.get_or_create(args.disease)
+
+    print(f"\nRunning DESeq2 for {accession}...")
+    print(f"  Count matrix : {counts}")
+    print(f"  Groups file  : {groups}")
+    print(f"  padj ≤ {args.padj}   |log2FC| ≥ {args.lfc}   min count ≥ {args.min_count}\n")
+
+    result = run_deseq2(
+        count_matrix_path = counts,
+        groups_path       = groups,
+        output_prefix     = accession,
+        data_dir          = data_dir,
+        padj_threshold    = args.padj,
+        lfc_threshold     = args.lfc,
+        min_count_filter  = args.min_count,
+        provenance        = prov
+    )
 
     if "error" in result:
-        print(f"\n✗  DESeq2 failed: {result['error']}")
-    else:
-        print("Analysis complete")
-        print(f"   Genes tested:       {result['n_genes_tested']}")
-        print(f"   Significant up:     {result['n_significant_up']}")
-        print(f"   Significant down:   {result['n_significant_down']}")
-        print(f"   Results saved to:   {result['results_path']}")
-        print(f"\n   Top upregulated:   {result['top_upregulated']}")
-        print(f"   Top downregulated: {result['top_downregulated']}")
+        print(f"\n  DESeq2 failed: {result['error']}")
+        sys.exit(1)
+
+    print(f"  Genes tested       : {result['n_genes_tested']}")
+    print(f"  Significant up     : {result['n_significant_up']}")
+    print(f"  Significant down   : {result['n_significant_down']}")
+    print(f"  Results saved to   : {result['results_path']}")
+    print(f"\n  Top upregulated    : {result['top_upregulated'][:5]}")
+    print(f"  Top downregulated  : {result['top_downregulated'][:5]}")
 

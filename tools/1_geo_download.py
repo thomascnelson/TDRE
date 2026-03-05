@@ -576,37 +576,58 @@ def assign_sample_groups_interactive(metadata_path: str,
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
+    import argparse
     from dotenv import load_dotenv
     load_dotenv()
 
-    accession = "GSE297335"
-    prov = ProvenanceLog.get_or_create("Barth Syndrome")
+    parser = argparse.ArgumentParser(
+        description=(
+            "Tool 1 — Download a GEO dataset and assign sample groups.\n"
+            "Produces: {accession}_counts.csv, _metadata.csv, _groups.csv"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument("-a", "--accession", required=True,
+                        help="GEO accession number (e.g. GSE297335)")
+    parser.add_argument("-d", "--disease", required=True,
+                        help="Disease name for the provenance log (e.g. 'Barth Syndrome')")
+    parser.add_argument("--data-dir",
+                        help="Output directory (default: data/{accession})")
+    args = parser.parse_args()
 
-    print(f"Testing GEO download for {accession}...\n")
+    accession = args.accession.strip().upper()
+    data_dir  = args.data_dir or os.path.join("data", accession)
 
-    result = download_geo_dataset(accession, provenance=prov)
+    prov = ProvenanceLog.get_or_create(args.disease)
 
-    print(f"\nTitle:        {result.get('title')}")
-    print(f"Samples:      {result.get('n_samples')}")
-    print(f"Platforms:    {result.get('platforms')}")
-    print(f"Data source:  {result.get('data_source')}")
-    print(f"Count matrix: {result.get('count_matrix_path')}")
-    print(f"Metadata:     {result.get('metadata_path')}")
+    print(f"\nDownloading GEO dataset {accession}...")
+    result = download_geo_dataset(accession, data_dir=data_dir, provenance=prov)
+
+    print(f"\n  Title       : {result.get('title')}")
+    print(f"  Samples     : {result.get('n_samples')}")
+    print(f"  Platforms   : {result.get('platforms')}")
+    print(f"  Data source : {result.get('data_source')}")
+    print(f"  Count matrix: {result.get('count_matrix_path')}")
+    print(f"  Metadata    : {result.get('metadata_path')}")
 
     if result.get("issues"):
-        print("\nIssues flagged:")
+        print("\n  Issues flagged:")
         for issue in result["issues"]:
-            print(f"  ⚠️  {issue}")
+            print(f"    {issue}")
 
     if result.get("count_matrix_path") is None:
-        print("\n✗  Cannot proceed — no count matrix obtained")
+        print("\n  Cannot proceed — no count matrix obtained.")
         sys.exit(1)
 
-    if result.get("metadata_path"):
-        print("\nInferring sample groups...")
-        groups = assign_sample_groups_interactive(
-            result["metadata_path"], provenance=prov
-        )
-        print(f"Group counts:  {groups.get('group_counts')}")
-        print(f"Ready for DEG: {groups.get('ready_for_deg')}")
+    print()
+    groups = assign_sample_groups_interactive(result["metadata_path"], provenance=prov)
+
+    prov.update_dataset_counts(
+        n_disease = groups["group_counts"].get("disease", 0),
+        n_control = groups["group_counts"].get("control", 0)
+    )
+
+    print(f"\n  Group counts : {groups.get('group_counts')}")
+    print(f"  Groups file  : {groups.get('groups_file')}")
+    print(f"  Ready for DEG: {groups.get('ready_for_deg')}")
 

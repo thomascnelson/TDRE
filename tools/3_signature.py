@@ -112,28 +112,62 @@ def build_signature(deg_results_path: str,
     return signature
 
 
-### TEST ROUTINE
 if __name__ == "__main__":
+    import argparse
     from dotenv import load_dotenv
     load_dotenv()
 
-    DEG_RESULTS = "data/GSE226646/GSE226646_deseq2_results.csv"
+    parser = argparse.ArgumentParser(
+        description=(
+            "Tool 3 — Build a disease transcriptomic signature from DESeq2 results.\n"
+            "Maps DEG gene IDs to canonical symbols via MyGeneInfo.\n"
+            "Produces: {accession}_signature.json and _signature.csv"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument("-a", "--accession", required=True,
+                        help="GEO accession number (e.g. GSE297335)")
+    parser.add_argument("-d", "--disease", required=True,
+                        help="Disease name for the provenance log")
+    parser.add_argument("--deg-results",
+                        help="Path to DESeq2 results CSV "
+                             "(default: data/{accession}/{accession}_deseq2_results.csv)")
+    parser.add_argument("--padj", type=float, default=0.05,
+                        help="Adjusted p-value threshold (default: 0.05)")
+    parser.add_argument("--lfc", type=float, default=1.0,
+                        help="log2 fold-change threshold (default: 1.0)")
+    parser.add_argument("--max-genes", type=int, default=150,
+                        help="Maximum signature size — split evenly up/down (default: 150)")
+    args = parser.parse_args()
 
-    # Create the provenance log
-    prov = ProvenanceLog.get_or_create("Friedreich ataxia")
+    accession   = args.accession.strip().upper()
+    data_dir    = os.path.join("data", accession)
+    deg_results = args.deg_results or os.path.join(
+        data_dir, f"{accession}_deseq2_results.csv"
+    )
 
-    print(f"Building disease signature from {DEG_RESULTS}...\n")
+    prov = ProvenanceLog.get_or_create(args.disease)
 
-    signature = build_signature(DEG_RESULTS, provenance = prov)
+    print(f"\nBuilding signature from {deg_results}...")
+    print(f"  padj ≤ {args.padj}   |log2FC| ≥ {args.lfc}   max genes: {args.max_genes}\n")
 
-    print(f"\nSignature quality:   {signature['signature_quality']}")
-    print(f"Thresholds used:     padj < {signature['thresholds_used']['padj']},  log2FC > {signature['thresholds_used']['log2fc']}")
-    print(f"Upregulated genes:   {signature['n_up']}")
-    print(f"Downregulated genes: {signature['n_down']}")
-    print(f"\nTop upregulated:     {signature['upregulated'][:10]}")
-    print(f"Top downregulated:   {signature['downregulated'][:10]}")
-    print(f"\nJSON: {signature['json_path']}")
-    print(f"CSV:  {signature['csv_path']}")
+    signature = build_signature(
+        deg_results_path = deg_results,
+        padj_threshold   = args.padj,
+        lfc_threshold    = args.lfc,
+        max_genes        = args.max_genes,
+        provenance       = prov
+    )
+
+    print(f"\n  Quality            : {signature['signature_quality']}")
+    print(f"  Thresholds used    : padj < {signature['thresholds_used']['padj']},"
+          f"  |log2FC| > {signature['thresholds_used']['log2fc']}")
+    print(f"  Upregulated genes  : {signature['n_up']}")
+    print(f"  Downregulated genes: {signature['n_down']}")
+    print(f"\n  Top upregulated    : {signature['upregulated'][:10]}")
+    print(f"  Top downregulated  : {signature['downregulated'][:10]}")
+    print(f"\n  JSON : {signature['json_path']}")
+    print(f"  CSV  : {signature['csv_path']}")
 
 
 
