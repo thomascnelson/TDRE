@@ -25,7 +25,13 @@ Provenance log  +  Markdown report
 ```
 
 ---
+## Warning
 
+This code is my own personal project. Therefore you'll likely find bugs or unexpected behavior that might not be documented here. Please let me kow if you find anything and feel free to contribute to it as 
+you wish. I have tested it with a couple of rare disease examples, but since the GEO datasets are not standardized and are very messy, be especially carefil with the sample assignment parts of the pipeline. 
+Right now it only does single factor differential gene expression anaysis, control vs disease. 
+
+---
 ## Output
 
 All outputs for an accession (e.g. `GSE297335`) are written to `data/GSE297335/`:
